@@ -14,6 +14,7 @@ import org.synyx.urlaubsverwaltung.sicknote.sicknote.SickNoteStatus;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 class CalendarAbsenceService {
@@ -56,7 +57,7 @@ class CalendarAbsenceService {
     private List<CalendarAbsence> generateAbsencesFromApplication(List<Application> applications) {
         final CalendarAbsenceConfiguration config = getAbsenceTimeConfiguration();
         return applications.stream()
-                .map(application -> new CalendarAbsence(application.getPerson(), application.getPeriod(), config))
+                .map(application -> new CalendarAbsence(application.getPerson(), application.getPeriod(), config, application.getVacationType()))
                 .toList();
     }
 

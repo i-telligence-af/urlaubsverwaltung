@@ -1,5 +1,7 @@
 package org.synyx.urlaubsverwaltung.calendar;
 
+import org.synyx.urlaubsverwaltung.application.vacationtype.ProvidedVacationType;
+import org.synyx.urlaubsverwaltung.application.vacationtype.VacationType;
 import org.synyx.urlaubsverwaltung.period.Period;
 import org.synyx.urlaubsverwaltung.person.Person;
 
@@ -17,14 +19,21 @@ public class CalendarAbsence {
     private final boolean isAllDay;
     private final CalendarAbsenceType calendarAbsenceType;
 
-    public CalendarAbsence(Person person, Period period, CalendarAbsenceConfiguration absenceTimeConfiguration) {
-        this(person, period, absenceTimeConfiguration, DEFAULT);
+    private final VacationType vacationType;
+
+    public CalendarAbsence(Person person, Period period, CalendarAbsenceConfiguration absenceTimeConfiguration, VacationType vacationType) {
+        this(person, period, absenceTimeConfiguration, DEFAULT, vacationType);
     }
 
-    public CalendarAbsence(Person person, Period period, CalendarAbsenceConfiguration absenceTimeConfiguration, CalendarAbsenceType calendarAbsenceType) {
+    public CalendarAbsence(Person person, Period period, CalendarAbsenceConfiguration absenceTimeConfiguration){
+        this(person, period, absenceTimeConfiguration, DEFAULT, null);
+    }
+
+    public CalendarAbsence(Person person, Period period, CalendarAbsenceConfiguration absenceTimeConfiguration, CalendarAbsenceType calendarAbsenceType, VacationType vacationType) {
 
         this.person = person;
         this.calendarAbsenceType = calendarAbsenceType;
+        this.vacationType = vacationType;
 
         final ZonedDateTime periodStartDate = period.startDate().atStartOfDay(ZoneId.of(absenceTimeConfiguration.timeZoneId()));
         final ZonedDateTime periodEndDate = period.endDate().atStartOfDay(ZoneId.of(absenceTimeConfiguration.timeZoneId()));
@@ -49,6 +58,10 @@ public class CalendarAbsence {
         }
     }
 
+    public CalendarAbsence(Person person, Period period, CalendarAbsenceConfiguration absenceTimeConfiguration, CalendarAbsenceType calendarAbsenceType){
+        this(person, period, absenceTimeConfiguration, calendarAbsenceType, null);
+    }
+
     public ZonedDateTime getStartDate() {
         return startDate;
     }
@@ -70,6 +83,9 @@ public class CalendarAbsence {
     }
 
     public String getCalendarAbsenceTypeMessageKey() {
+        if ( vacationType instanceof ProvidedVacationType providedVacationType && providedVacationType.isVisibleToEveryone() ){
+            return providedVacationType.getMessageKey()  + ".person";
+        }
         return calendarAbsenceType.getMessageKey();
     }
 
