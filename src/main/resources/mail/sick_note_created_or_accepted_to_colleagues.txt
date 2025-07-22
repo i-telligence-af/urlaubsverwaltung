@@ -1,6 +1,6 @@
 [(#{greeting(${recipient.niceName})})],
 
-[(#{sick_note.created.to_colleagues(${sickNote.person.niceName})})]
+[(#{sick_note.created.to_colleagues( #{__${sickNote.sickNoteType.messageKey}__}, ${sickNote.person.niceName} )})]
 
     [(#{absence.information.period})] [# th:replace="~{_date_range(from=${sickNote.startDate},to=${sickNote.endDate},dayLength=${sickNote.dayLength})}" /]
 

@@ -25,6 +25,9 @@ velocity.log*
 *.sw[o|p]
 *.sdsrc
 
+# Mac
+.DS_Store
+
 # ignore oauth-file with credentials for testing
 src/test/resources/google_oauth.properties
 
