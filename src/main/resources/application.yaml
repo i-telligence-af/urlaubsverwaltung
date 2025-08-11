@@ -1,62 +1,62 @@
 uv:
-  mail:
-    fromDisplayName: Urlaubsverwaltung
-    replyToDisplayName: Urlaubsverwaltung
-  tenant:
-    mode: single
+    mail:
+        fromDisplayName: Urlaubsverwaltung
+        replyToDisplayName: Urlaubsverwaltung
+    tenant:
+        mode: single
 
 spring:
-  web:
-    resources:
-      cache:
-        cachecontrol:
-          cache-public: true
-          cache-private: true
-          max-age: 365d
-      chain:
-        cache: true
-        strategy:
-          content:
-            enabled: true
-            paths: /css/**.css,/favicons/**,/images/**
-  data:
     web:
-      pageable:
-        one-indexed-parameters: true
-        default-page-size: 10
-  datasource:
-    username: urlaubsverwaltung
-    password: urlaubsverwaltung
-    url: jdbc:postgresql://localhost:5434/urlaubsverwaltung
-  jpa:
-    open-in-view: false
-  session:
-    jdbc:
-      initialize-schema: always
-  messages:
-    basename: messages,launchpad-core
-    fallback-to-system-locale: false
-  liquibase:
-    change-log: classpath:/dbchangelogs/changelogmaster.xml
-  threads:
-    virtual:
-      enabled: true
+        resources:
+            cache:
+                cachecontrol:
+                    cache-public: true
+                    cache-private: true
+                    max-age: 365d
+            chain:
+                cache: true
+                strategy:
+                    content:
+                        enabled: true
+                        paths: /css/**.css,/favicons/**,/images/**
+    data:
+        web:
+            pageable:
+                one-indexed-parameters: true
+                default-page-size: 10
+    datasource:
+        username: urlaubsverwaltung
+        password: urlaubsverwaltung
+        url: jdbc:postgresql://localhost:5434/urlaubsverwaltung
+    jpa:
+        open-in-view: false
+    session:
+        jdbc:
+            initialize-schema: always
+    messages:
+        basename: messages,launchpad-core
+        fallback-to-system-locale: false
+    liquibase:
+        change-log: classpath:/dbchangelogs/changelogmaster.xml
+    threads:
+        virtual:
+            enabled: true
 
 server:
-  compression:
-    min-response-size: 1024
-    enabled: true
+    compression:
+        min-response-size: 1024
+        enabled: true
 
 management:
-  endpoint:
-    prometheus:
-      access: read_only
-  endpoints:
-    web:
-      exposure:
-        include: info, health
+    endpoint:
+        prometheus:
+            access: read_only
+    endpoints:
+        web:
+            exposure:
+                include: info, health
 
 info:
-  app:
-    name: "@project.name@"
-    version: "@project.version@"
+    app:
+        name: "@project.name@"
+        version: "@project.version@"
