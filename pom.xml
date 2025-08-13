@@ -1,565 +1,571 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.synyx</groupId>
-  <artifactId>urlaubsverwaltung</artifactId>
-  <version>5.27.0-SNAPSHOT</version>
+    <groupId>org.synyx</groupId>
+    <artifactId>urlaubsverwaltung</artifactId>
+    <version>5.27.0-SNAPSHOT</version>
 
-  <name>Urlaubsverwaltung</name>
+    <name>Urlaubsverwaltung</name>
 
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.6</version>
-  </parent>
-
-  <properties>
-    <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
-    <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
-    <java.version>21</java.version>
-    <uv-extension-api.version>2.3.2</uv-extension-api.version>
-
-    <!-- Remove commons-compress dependency when testcontainers ships with commons-compress >= 1.27.1, see
-     https://github.com/testcontainers/testcontainers-java/issues/8338
-     https://www.cve.org/CVERecord?id=CVE-2024-25710
-     https://www.cve.org/CVERecord?id=CVE-2024-26308
-    -->
-    <commons-compress.version>1.27.1</commons-compress.version>
-
-    <docker-publish-registry>registry.example.com</docker-publish-registry>
-    <docker-publish-registry-path>path/example</docker-publish-registry-path>
-    <docker-publish-registry-username>username</docker-publish-registry-username>
-    <docker-publish-registry-password>password</docker-publish-registry-password>
-    <docker-image-name>${project.artifactId}</docker-image-name>
-    <docker-image-version>${project.version}</docker-image-version>
-  </properties>
-
-  <scm>
-    <url>https://github.com/urlaubsverwaltung/urlaubsverwaltung</url>
-    <developerConnection>scm:git:git@github.com:urlaubsverwaltung/urlaubsverwaltung.git</developerConnection>
-    <connection>scm:git:git@github.com:urlaubsverwaltung/urlaubsverwaltung.git</connection>
-    <tag>HEAD</tag>
-  </scm>
-
-  <dependencies>
-
-    <dependency>
-      <groupId>de.focus-shift</groupId>
-      <artifactId>launchpad</artifactId>
-      <version>1.1.0</version>
-    </dependency>
-
-    <!-- Logging -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-logging</artifactId>
-    </dependency>
-
-    <!-- API -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-hateoas</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.jayway.jsonpath</groupId>
-      <artifactId>json-path</artifactId>
-    </dependency>
-
-    <!-- API DOCUMENTATION -->
-    <dependency>
-      <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-      <version>2.8.8</version>
-    </dependency>
-
-    <!-- SESSION -->
-    <dependency>
-      <groupId>org.springframework.session</groupId>
-      <artifactId>spring-session-jdbc</artifactId>
-    </dependency>
-
-    <!-- WEB -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>
-
-    <!-- Configuration Properties -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <!-- METRICS -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.micrometer</groupId>
-      <artifactId>micrometer-registry-prometheus</artifactId>
-    </dependency>
-
-    <!-- DATABASE -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.liquibase</groupId>
-      <artifactId>liquibase-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>postgresql</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- csv file export -->
-    <dependency>
-      <groupId>com.opencsv</groupId>
-      <artifactId>opencsv</artifactId>
-      <version>5.11.1</version>
-    </dependency>
-
-    <!-- Shedlock -->
-    <dependency>
-      <groupId>net.javacrumbs.shedlock</groupId>
-      <artifactId>shedlock-provider-jdbc-template</artifactId>
-      <version>6.8.0</version>
-    </dependency>
-
-    <!-- MAIL -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-mail</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.icegreen</groupId>
-      <artifactId>greenmail-junit5</artifactId>
-      <version>2.1.3</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.simplejavamail</groupId>
-      <artifactId>simple-java-mail</artifactId>
-      <version>8.12.6</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- PUBLIC HOLIDAYS INFORMATION -->
-    <dependency>
-      <groupId>de.focus-shift</groupId>
-      <artifactId>jollyday-core</artifactId>
-      <version>1.5.4</version>
-    </dependency>
-    <dependency>
-      <groupId>de.focus-shift</groupId>
-      <artifactId>jollyday-jaxb</artifactId>
-      <version>1.5.4</version>
-    </dependency>
-
-    <!-- DEVELOPMENT -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-docker-compose</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <!-- iCal -->
-    <dependency>
-      <groupId>org.mnode.ical4j</groupId>
-      <artifactId>ical4j</artifactId>
-      <version>4.1.1</version>
-    </dependency>
-
-    <!-- GOOGLE CALENDAR SYNC -->
-    <dependency>
-      <groupId>com.google.api-client</groupId>
-      <artifactId>google-api-client</artifactId>
-      <version>2.8.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.apis</groupId>
-      <artifactId>google-api-services-calendar</artifactId>
-      <version>v3-rev20250404-2.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.http-client</groupId>
-      <artifactId>google-http-client-jackson2</artifactId>
-      <version>1.47.0</version>
-    </dependency>
-
-    <!-- Security -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-oauth2-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.github.dasniko</groupId>
-      <artifactId>testcontainers-keycloak</artifactId>
-      <version>3.7.0</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- Validation -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-validation</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-validator</groupId>
-      <artifactId>commons-validator</artifactId>
-      <version>1.9.0</version>
-    </dependency>
-
-    <!-- uv extension api -->
-    <dependency>
-      <groupId>de.focus-shift.urlaubsverwaltung.extension.api</groupId>
-      <artifactId>model-common</artifactId>
-      <version>${uv-extension-api.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>de.focus-shift.urlaubsverwaltung.extension.api</groupId>
-      <artifactId>model-events</artifactId>
-      <version>${uv-extension-api.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>de.focus-shift.urlaubsverwaltung.extension.api</groupId>
-      <artifactId>service</artifactId>
-      <version>${uv-extension-api.version}</version>
-    </dependency>
-
-    <!-- Test -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>testcontainers</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.javacrumbs.json-unit</groupId>
-      <artifactId>json-unit-assertj</artifactId>
-      <version>4.1.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-compress</artifactId>
-      <version>${commons-compress.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.tngtech.archunit</groupId>
-      <artifactId>archunit-junit5</artifactId>
-      <version>1.4.1</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- UI Tests -->
-    <dependency>
-      <groupId>com.microsoft.playwright</groupId>
-      <artifactId>playwright</artifactId>
-      <version>1.52.0</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <failOnError>false</failOnError>
-        </configuration>
-      </plugin>
-
-      <plugin>
+    <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <layout>ZIP</layout>
-          <image>
-            <name>
-              ${docker-publish-registry}/${docker-publish-registry-path}/${docker-image-name}:${docker-image-version}
-            </name>
-            <env>
-              <BPE_DEFAULT_BPL_JVM_CLASS_ADJUSTMENT>120%</BPE_DEFAULT_BPL_JVM_CLASS_ADJUSTMENT>
-            </env>
-            <builder>paketobuildpacks/builder-jammy-base</builder>
-          </image>
-          <docker>
-            <publishRegistry>
-              <username>${docker-publish-registry-username}</username>
-              <password>${docker-publish-registry-password}</password>
-            </publishRegistry>
-          </docker>
-        </configuration>
-      </plugin>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.6</version>
+    </parent>
 
-      <!-- Frontend assets -->
-      <plugin>
-        <groupId>com.github.eirslett</groupId>
-        <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.15.1</version>
-        <configuration>
-          <nodeVersion>v22.15.0</nodeVersion>
-          <npmVersion>10.9.2</npmVersion>
-        </configuration>
-        <executions>
-          <!-- Install node/npm binary to run npm/node scripts-->
-          <execution>
-            <id>install-node-and-npm</id>
-            <goals>
-              <goal>install-node-and-npm</goal>
-            </goals>
-          </execution>
-          <!-- Install all project dependencies exactly defined in package-lock.json -->
-          <execution>
-            <id>install-npm-dependencies</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>ci</arguments>
-            </configuration>
-          </execution>
-          <!-- lint JavaScript files (static code analysis) -->
-          <execution>
-            <id>npm-lint</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>run lint</arguments>
-            </configuration>
-          </execution>
-          <!-- lint JavaScript files report (static code analysis) -->
-          <execution>
-            <id>npm-lint-report</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>run lint:report</arguments>
-            </configuration>
-          </execution>
-          <!-- Build and minify assets -->
-          <execution>
-            <id>npm-build</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>run build</arguments>
-            </configuration>
-          </execution>
-          <!-- run Tests -->
-          <execution>
-            <id>npm-test</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <phase>test</phase>
-            <configuration>
-              <arguments>run test:coverage</arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+    <properties>
+        <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+        <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+        <java.version>21</java.version>
+        <uv-extension-api.version>2.3.2</uv-extension-api.version>
 
-      <!-- Integration tests -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-      </plugin>
+        <!-- Remove commons-compress dependency when testcontainers ships with commons-compress >= 1.27.1, see
+         https://github.com/testcontainers/testcontainers-java/issues/8338
+         https://www.cve.org/CVERecord?id=CVE-2024-25710
+         https://www.cve.org/CVERecord?id=CVE-2024-26308
+        -->
+        <commons-compress.version>1.27.1</commons-compress.version>
 
-      <!-- Editorconfig -->
-      <plugin>
-        <groupId>org.ec4j.maven</groupId>
-        <artifactId>editorconfig-maven-plugin</artifactId>
-        <version>0.1.3</version>
-        <executions>
-          <execution>
-            <id>check</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <excludes>
-            <exclude>logs/**</exclude>
-            <exclude>node/**</exclude>
-            <exclude>node_modules/**</exclude>
-            <exclude>.docs/**</exclude>
-            <exclude>.mvn/**</exclude>
-            <exclude>.m2/**</exclude>
-            <exclude>.jdk/**</exclude>
-            <exclude>mvnw</exclude>
-            <exclude>mvnw.cmd</exclude>
-            <exclude>src/main/resources/static/lib/**</exclude>
-            <exclude>src/main/resources/static/fonts/**</exclude>
-            <exclude>src/test/resources/urlaubsverwaltung-backup.json</exclude>
-            <exclude>.examples/docker-compose/with-keycloak/keycloak/import/**</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
+        <docker-publish-registry>registry.example.com</docker-publish-registry>
+        <docker-publish-registry-path>path/example</docker-publish-registry-path>
+        <docker-publish-registry-username>username</docker-publish-registry-username>
+        <docker-publish-registry-password>password</docker-publish-registry-password>
+        <docker-image-name>${project.artifactId}</docker-image-name>
+        <docker-image-version>${project.version}</docker-image-version>
+    </properties>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.5.0</version>
-        <executions>
-          <execution>
-            <id>enforce-maven</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>3.3.9</version>
-                </requireMavenVersion>
-                <requireJavaVersion>
-                  <version>${java.version}</version>
-                </requireJavaVersion>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+    <scm>
+        <url>https://github.com/urlaubsverwaltung/urlaubsverwaltung</url>
+        <developerConnection>scm:git:git@github.com:urlaubsverwaltung/urlaubsverwaltung.git</developerConnection>
+        <connection>scm:git:git@github.com:urlaubsverwaltung/urlaubsverwaltung.git</connection>
+        <tag>HEAD</tag>
+    </scm>
 
-  <profiles>
-    <!-- Run only UI Tests with `mvn verify` ignoring other integration tests -->
-    <profile>
-      <id>ui-test</id>
-      <build>
+    <dependencies>
+
+        <dependency>
+            <groupId>de.focus-shift</groupId>
+            <artifactId>launchpad</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.synyx</groupId>
+            <artifactId>itelligence-urlaub-autostarter</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+
+        <!-- API -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+        </dependency>
+
+        <!-- API DOCUMENTATION -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.8</version>
+        </dependency>
+
+        <!-- SESSION -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+        </dependency>
+
+        <!-- WEB -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- Configuration Properties -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- METRICS -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <!-- DATABASE -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- csv file export -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.11.1</version>
+        </dependency>
+
+        <!-- Shedlock -->
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-provider-jdbc-template</artifactId>
+            <version>6.8.0</version>
+        </dependency>
+
+        <!-- MAIL -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail-junit5</artifactId>
+            <version>2.1.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.simplejavamail</groupId>
+            <artifactId>simple-java-mail</artifactId>
+            <version>8.12.6</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- PUBLIC HOLIDAYS INFORMATION -->
+        <dependency>
+            <groupId>de.focus-shift</groupId>
+            <artifactId>jollyday-core</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>de.focus-shift</groupId>
+            <artifactId>jollyday-jaxb</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
+        <!-- DEVELOPMENT -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-docker-compose</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- iCal -->
+        <dependency>
+            <groupId>org.mnode.ical4j</groupId>
+            <artifactId>ical4j</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
+        <!-- GOOGLE CALENDAR SYNC -->
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-calendar</artifactId>
+            <version>v3-rev20250404-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson2</artifactId>
+            <version>1.47.0</version>
+        </dependency>
+
+        <!-- Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.dasniko</groupId>
+            <artifactId>testcontainers-keycloak</artifactId>
+            <version>3.7.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Validation -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.9.0</version>
+        </dependency>
+
+        <!-- uv extension api -->
+        <dependency>
+            <groupId>de.focus-shift.urlaubsverwaltung.extension.api</groupId>
+            <artifactId>model-common</artifactId>
+            <version>${uv-extension-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.focus-shift.urlaubsverwaltung.extension.api</groupId>
+            <artifactId>model-events</artifactId>
+            <version>${uv-extension-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.focus-shift.urlaubsverwaltung.extension.api</groupId>
+            <artifactId>service</artifactId>
+            <version>${uv-extension-api.version}</version>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.javacrumbs.json-unit</groupId>
+            <artifactId>json-unit-assertj</artifactId>
+            <version>4.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>${commons-compress.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>1.4.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- UI Tests -->
+        <dependency>
+            <groupId>com.microsoft.playwright</groupId>
+            <artifactId>playwright</artifactId>
+            <version>1.52.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
         <plugins>
-          <!-- skip javascript linting and tests -->
-          <plugin>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>npm-lint</id>
-                <phase>none</phase>
-              </execution>
-              <execution>
-                <id>npm-test</id>
-                <phase>none</phase>
-              </execution>
-            </executions>
-          </plugin>
-          <!-- skip unit tests -->
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <skipTests>true</skipTests>
-            </configuration>
-          </plugin>
-          <!-- run ui tests -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <groups>ui</groups>
-            </configuration>
-          </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <failOnError>false</failOnError>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <layout>ZIP</layout>
+                    <image>
+                        <name>
+                            ${docker-publish-registry}/${docker-publish-registry-path}/${docker-image-name}:${docker-image-version}
+                        </name>
+                        <env>
+                            <BPE_DEFAULT_BPL_JVM_CLASS_ADJUSTMENT>120%</BPE_DEFAULT_BPL_JVM_CLASS_ADJUSTMENT>
+                        </env>
+                        <builder>paketobuildpacks/builder-jammy-base</builder>
+                    </image>
+                    <docker>
+                        <publishRegistry>
+                            <username>${docker-publish-registry-username}</username>
+                            <password>${docker-publish-registry-password}</password>
+                        </publishRegistry>
+                    </docker>
+                </configuration>
+            </plugin>
+
+            <!-- Frontend assets -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.15.1</version>
+                <configuration>
+                    <nodeVersion>v22.15.0</nodeVersion>
+                    <npmVersion>10.9.2</npmVersion>
+                </configuration>
+                <executions>
+                    <!-- Install node/npm binary to run npm/node scripts-->
+                    <execution>
+                        <id>install-node-and-npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                    </execution>
+                    <!-- Install all project dependencies exactly defined in package-lock.json -->
+                    <execution>
+                        <id>install-npm-dependencies</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>ci</arguments>
+                        </configuration>
+                    </execution>
+                    <!-- lint JavaScript files (static code analysis) -->
+                    <execution>
+                        <id>npm-lint</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run lint</arguments>
+                        </configuration>
+                    </execution>
+                    <!-- lint JavaScript files report (static code analysis) -->
+                    <execution>
+                        <id>npm-lint-report</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run lint:report</arguments>
+                        </configuration>
+                    </execution>
+                    <!-- Build and minify assets -->
+                    <execution>
+                        <id>npm-build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                    <!-- run Tests -->
+                    <execution>
+                        <id>npm-test</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>test</phase>
+                        <configuration>
+                            <arguments>run test:coverage</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Integration tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+
+            <!-- Editorconfig -->
+            <plugin>
+                <groupId>org.ec4j.maven</groupId>
+                <artifactId>editorconfig-maven-plugin</artifactId>
+                <version>0.1.3</version>
+                <executions>
+                    <execution>
+                        <id>check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>logs/**</exclude>
+                        <exclude>node/**</exclude>
+                        <exclude>node_modules/**</exclude>
+                        <exclude>.docs/**</exclude>
+                        <exclude>.mvn/**</exclude>
+                        <exclude>.m2/**</exclude>
+                        <exclude>.jdk/**</exclude>
+                        <exclude>mvnw</exclude>
+                        <exclude>mvnw.cmd</exclude>
+                        <exclude>src/main/resources/static/lib/**</exclude>
+                        <exclude>src/main/resources/static/fonts/**</exclude>
+                        <exclude>src/test/resources/urlaubsverwaltung-backup.json</exclude>
+                        <exclude>.examples/docker-compose/with-keycloak/keycloak/import/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.3.9</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>${java.version}</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-      </build>
-    </profile>
+    </build>
 
-    <profile>
-      <id>coverage</id>
-      <build>
-        <plugins>
+    <profiles>
+        <!-- Run only UI Tests with `mvn verify` ignoring other integration tests -->
+        <profile>
+            <id>ui-test</id>
+            <build>
+                <plugins>
+                    <!-- skip javascript linting and tests -->
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>npm-lint</id>
+                                <phase>none</phase>
+                            </execution>
+                            <execution>
+                                <id>npm-test</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- skip unit tests -->
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                    <!-- run ui tests -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <groups>ui</groups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-          <!-- Coverage -->
-          <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.13</version>
-            <executions>
-              <execution>
-                <id>default-prepare-agent</id>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>default-prepare-agent-integration</id>
-                <goals>
-                  <goal>prepare-agent-integration</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>default-report</id>
-                <goals>
-                  <goal>report</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>default-report-integration</id>
-                <goals>
-                  <goal>report-integration</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
+        <profile>
+            <id>coverage</id>
+            <build>
+                <plugins>
 
-          <!-- sonar -->
-          <plugin>
-            <groupId>org.sonarsource.scanner.maven</groupId>
-            <artifactId>sonar-maven-plugin</artifactId>
-            <version>5.1.0.4751</version>
-          </plugin>
+                    <!-- Coverage -->
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.13</version>
+                        <executions>
+                            <execution>
+                                <id>default-prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>default-prepare-agent-integration</id>
+                                <goals>
+                                    <goal>prepare-agent-integration</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>default-report-integration</id>
+                                <goals>
+                                    <goal>report-integration</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
 
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+                    <!-- sonar -->
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>5.1.0.4751</version>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
