@@ -58,7 +58,7 @@ public class SickDaysStatisticsService {
      * @param to     a specific date
      * @return list of all {@link SickDaysDetailedStatistics} that the person can access
      */
-    Page<SickDaysDetailedStatistics> getAll(Person person, LocalDate from, LocalDate to, PageableSearchQuery pageableSearchQuery) {
+    public Page<SickDaysDetailedStatistics> getAll(Person person, LocalDate from, LocalDate to, PageableSearchQuery pageableSearchQuery) {
 
         final Pageable pageable = pageableSearchQuery.getPageable();
 
