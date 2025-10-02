@@ -3,15 +3,15 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-  <changeSet author="schneider" id="unique-department-names">
+    <changeSet author="schneider" id="unique-department-names">
 
-    <preConditions>
-      <tableExists tableName="department"/>
-      <columnExists tableName="department" columnName="id"/>
-      <columnExists tableName="department" columnName="name"/>
-    </preConditions>
+        <preConditions>
+            <tableExists tableName="department"/>
+            <columnExists tableName="department" columnName="id"/>
+            <columnExists tableName="department" columnName="name"/>
+        </preConditions>
 
-    <sql>
+        <sql>
       WITH DuplicateRows AS (
         SELECT
           id,
@@ -30,11 +30,11 @@
       WHERE
         department.id = DuplicateRows.id
         AND DuplicateRows.cnt > 1;
-    </sql>
+        </sql>
 
-    <addUniqueConstraint columnNames="name"
+        <addUniqueConstraint columnNames="name"
                          constraintName="unique_department_name"
                          tableName="department"/>
 
-  </changeSet>
+    </changeSet>
 </databaseChangeLog>

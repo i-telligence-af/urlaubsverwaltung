@@ -3,22 +3,22 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-  <include relativeToChangelogFile="true" file="changelog-5.0.0-M1-initial.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.0.0-M4-add-custom-vacation-type.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.0.0-RC1-unique-department-names.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.0.0-RC1-delete-admin-role.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.0.0-RC1-migrate-calender-settings.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.1.0-add-expiry-date-to-account-settings.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.4.0-sicknote-submission-by-user.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.6.0-trim-person.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.7.0-add-sicknote-extension.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.10.0-singletenant.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.10.0-sick-note-type-seq.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.11.0-adjust-unique-constraints.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.15.0-add-missing-indices.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.20.0-time-start-end-minute.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.25.0-role-application-edit.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.26.0-overtime-settings-sync.xml"/>
-  <include relativeToChangelogFile="true" file="changelog-5.26.0-overtime-external.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.0.0-M1-initial.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.0.0-M4-add-custom-vacation-type.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.0.0-RC1-unique-department-names.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.0.0-RC1-delete-admin-role.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.0.0-RC1-migrate-calender-settings.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.1.0-add-expiry-date-to-account-settings.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.4.0-sicknote-submission-by-user.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.6.0-trim-person.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.7.0-add-sicknote-extension.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.10.0-singletenant.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.10.0-sick-note-type-seq.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.11.0-adjust-unique-constraints.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.15.0-add-missing-indices.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.20.0-time-start-end-minute.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.25.0-role-application-edit.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.26.0-overtime-settings-sync.xml"/>
+    <include relativeToChangelogFile="true" file="changelog-5.26.0-overtime-external.xml"/>
 
 </databaseChangeLog>
