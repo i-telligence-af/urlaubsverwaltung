@@ -36,12 +36,25 @@
         <docker-image-version>${project.version}</docker-image-version>
     </properties>
 
+    <!-- start itelligence mod -->
+    <repositories>
+        <repository>
+            <id>archiva.internal</id>
+            <url>${archiva.url}/repository/internal</url>
+        </repository>
+    </repositories>
+    <!-- end itelligence mod -->
+    
+    <!-- start itelligence mod -->
+    <!--
     <scm>
         <url>https://github.com/urlaubsverwaltung/urlaubsverwaltung</url>
         <developerConnection>scm:git:git@github.com:urlaubsverwaltung/urlaubsverwaltung.git</developerConnection>
         <connection>scm:git:git@github.com:urlaubsverwaltung/urlaubsverwaltung.git</connection>
         <tag>HEAD</tag>
     </scm>
+    -->
+    <!-- end itelligence mod -->
 
     <dependencies>
 
