@@ -34,9 +34,6 @@
         <docker-publish-registry-password>password</docker-publish-registry-password>
         <docker-image-name>${project.artifactId}</docker-image-name>
         <docker-image-version>${project.version}</docker-image-version>
-        <!-- start itelligence mod -->
-        <archiva.url>https://archiva.i-telligence.de</archiva.url>
-        <!-- end itelligence mod -->
     </properties>
 
     <!-- start itelligence mod -->
