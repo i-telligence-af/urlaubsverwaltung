@@ -42,6 +42,10 @@
             <id>archiva.internal</id>
             <url>${archiva.url}/repository/internal</url>
         </repository>
+        <repository>
+            <id>archiva.snapshots</id>
+            <url>${archiva.url}/repository/snapshots</url>
+        </repository>
     </repositories>
     <distributionManagement>
         <repository>
