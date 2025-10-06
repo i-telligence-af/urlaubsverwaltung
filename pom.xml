@@ -43,6 +43,16 @@
             <url>${archiva.url}/repository/internal</url>
         </repository>
     </repositories>
+    <distributionManagement>
+        <repository>
+            <id>archiva.internal</id>
+            <url>${archiva.url}/repository/internal</url>
+        </repository>
+        <snapshotRepository>
+            <id>archiva.snapshots</id>
+            <url>${archiva.url}/repository/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <!-- end itelligence mod -->
 
     <!-- start itelligence mod -->
