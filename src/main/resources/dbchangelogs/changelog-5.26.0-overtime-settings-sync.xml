@@ -3,16 +3,16 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-  <changeSet author="schneider" id="overtime-settings-sync">
-    <preConditions>
-      <tableExists tableName="settings"/>
-      <not>
-        <columnExists tableName="settings" columnName="overtime_sync_active"/>
-      </not>
-    </preConditions>
+    <changeSet author="schneider" id="overtime-settings-sync">
+        <preConditions>
+            <tableExists tableName="settings"/>
+            <not>
+                <columnExists tableName="settings" columnName="overtime_sync_active"/>
+            </not>
+        </preConditions>
 
-    <addColumn tableName="settings">
-      <column name="overtime_sync_active" defaultValueBoolean="false" type="boolean"/>
-    </addColumn>
-  </changeSet>
+        <addColumn tableName="settings">
+            <column name="overtime_sync_active" defaultValueBoolean="false" type="boolean"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

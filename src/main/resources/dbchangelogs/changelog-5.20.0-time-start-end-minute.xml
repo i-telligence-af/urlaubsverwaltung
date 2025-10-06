@@ -3,18 +3,18 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-  <changeSet author="schneider" id="add-time-start-end-minute">
-    <preConditions>
-      <tableExists tableName="settings"/>
-      <not>
-        <columnExists tableName="settings" columnName="work_day_begin_minute"/>
-        <columnExists tableName="settings" columnName="work_day_end_minute"/>
-      </not>
-    </preConditions>
+    <changeSet author="schneider" id="add-time-start-end-minute">
+        <preConditions>
+            <tableExists tableName="settings"/>
+            <not>
+                <columnExists tableName="settings" columnName="work_day_begin_minute"/>
+                <columnExists tableName="settings" columnName="work_day_end_minute"/>
+            </not>
+        </preConditions>
 
-    <addColumn tableName="settings">
-      <column name="work_day_begin_minute" type="integer" defaultValue="0"/>
-      <column name="work_day_end_minute" type="integer" defaultValue="0"/>
-    </addColumn>
-  </changeSet>
+        <addColumn tableName="settings">
+            <column name="work_day_begin_minute" type="integer" defaultValue="0"/>
+            <column name="work_day_end_minute" type="integer" defaultValue="0"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
