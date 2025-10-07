@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.synyx.urlaubsverwaltung.csv.CSVFile;
 import org.synyx.urlaubsverwaltung.person.Person;
@@ -67,13 +68,25 @@ public class MonthlyEmailScheduler {
         this.mailSender = mailSender;
     }
 
-    // Einmal monatlich am 1. Tag um 8 Uhr
+
     // @Scheduled(cron = "0 0 8 1 * *")
+    // Einmal monatlich am 10ten Tag um 8 Uhr
+
+    /**
+     *
+     * 0 Sekunde
+     * 0 Minute
+     * 8 Stunde
+     * 10 Tag des Monats
+     * * Monat (alle)
+     * * Wochentag (egal)
+     */
+    @Scheduled(cron = "0 0 8 10 * *")
     public void sendMonthlyEmail() {
 
         String from = generateMailAddressAndDisplayName(mailProperties.getFrom(), mailProperties.getFromDisplayName());
-        String replyTo = "maximilian.radmacher@gmail.com";
-        String email = "maximilian.radmacher@gmail.com";
+        String replyTo = generateMailAddressAndDisplayName(mailProperties.getFrom(), mailProperties.getFromDisplayName());
+        String email = "buchhaltung@i-telligence.de";
         String subject = "Monatliche E-Mail";
         String body = "Dies ist eine automatisch generierte monatliche E-Mail.";
 
@@ -145,8 +158,6 @@ public class MonthlyEmailScheduler {
         return exportService.generateCSV(period, locale, content );
     }
 
-
-
     class SickDaysDetailedStatisticsCsvExportService implements CsvExportService<SickDaysDetailedStatistics> {
 
         private final MessageSource messageSource;
@@ -209,7 +220,6 @@ public class MonthlyEmailScheduler {
             return messageSource.getMessage(key, args, locale);
         }
     }
-
 
     public interface CsvExportService<T> {
 
